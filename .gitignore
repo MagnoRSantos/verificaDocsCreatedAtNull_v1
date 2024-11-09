@@ -1,0 +1,8 @@
+## ignore directories and files
+db/
+log/
+csv/
+.env*
+.env.prod
+listDbsAzureSql_TSQL.py
+__pycache__/
