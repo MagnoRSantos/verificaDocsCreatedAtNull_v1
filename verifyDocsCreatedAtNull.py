@@ -47,7 +47,7 @@ def GravaLog(strValue, strAcao):
     ## Path LogFile
     datahoraLog = datetime.now().strftime('%Y-%m-%d')
     pathLog = os.path.join(dirapp, 'log')
-    pathLogFile = os.path.join(pathLog, 'loginfoDatabaseAzureSql.txt')
+    pathLogFile = os.path.join(pathLog, 'logAPP.txt')
 
     if not os.path.exists(pathLog):
         os.makedirs(pathLog)
