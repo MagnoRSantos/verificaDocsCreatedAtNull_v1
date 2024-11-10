@@ -81,6 +81,25 @@ def gravaCsv(v_ListValuesMongoDB):
         escritor.writerows(v_ListValuesMongoDB)
 
 
+def conectarMongoDB():
+
+    """
+    Essa funcao conecta ao mongodb.
+    """
+    
+    ## variaveis de conexao
+    DBUSERNAME = getValueEnv("USERNAME_MONGODB")
+    DBPASSWORD = getValueEnv("PASSWORD_MONGODB")
+    MONGO_HOST = getValueEnv("SERVER_MONGODB")
+    DBAUTHDB   = getValueEnv("DBAUTHDB_MONGODB")
+    
+    #connstr = 'mongodb://' + DBUSERNAME + ':' + DBPASSWORD + '@' + MONGO_HOST + '/' + DBAUTHDB
+    connstr = "mongodb://{0}:{1}@{2}/{3}".format(DBUSERNAME, DBPASSWORD, MONGO_HOST, DBAUTHDB)
+    conndb = MongoClient(connstr)
+    
+    return conndb
+
+
 ## funcao de conexao ao mongodb
 def listDbAndCollMongoDB(p_nameCollection):
 
@@ -97,19 +116,22 @@ def listDbAndCollMongoDB(p_nameCollection):
 
     try:
 
-       ## variaveis de conexao
+        """
+        ## variaveis de conexao
         DBUSERNAME = getValueEnv("USERNAME_MONGODB")
         DBPASSWORD = getValueEnv("PASSWORD_MONGODB")
         MONGO_HOST = getValueEnv("SERVER_MONGODB")
         DBAUTHDB   = getValueEnv("DBAUTHDB_MONGODB")
         connstr = 'mongodb://' + DBUSERNAME + ':' + DBPASSWORD + '@' + MONGO_HOST + '/' + DBAUTHDB
+        """
 
         ## cria lista vazia
         listReturnMongoDb = []
         #listDbsAll = []
         contadorDbs = 0
 
-        with MongoClient(connstr) as client:
+        #with MongoClient(connstr) as client:
+        with conectarMongoDB() as client:
             
             #listar todos databases
             cursor = client.list_database_names()
